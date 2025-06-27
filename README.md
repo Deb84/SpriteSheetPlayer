@@ -41,7 +41,7 @@ SpriteSheetPlayer.PlayWithPosition(imageLabel, part, gridSize, fps)
 SpriteSheetPlayer.PlayWithPosition(imageLabel, part, 8, 24)
 ```
 > [!WARNING]\
-> For now, synchronous can't be stopped, the can maybe played forever
+> For now, synchronous can't be stopped, the sprite sheet can maybe played forever
 > 
 ### Async:
 
