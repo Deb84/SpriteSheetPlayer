@@ -6,7 +6,7 @@ SpriteSheetPlayer is a mini-lib for Roblox written in Luau which allows to use s
 
 You can simply require the lib like this
 ```luau
-local SpriteSheetPlayer = require(ReplicatedStorage.SpriteSheetPlayer.SpriteSheetPlayer)
+local SpriteSheetPlayer = require(Location.SpriteSheetPlayer.SpriteSheetPlayer)
 ```
 ---
 
