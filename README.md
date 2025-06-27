@@ -25,10 +25,9 @@ local SpriteSheetPlayer = require(ReplicatedStorage.SpriteSheetPlayer.SpriteShee
 
 
 ### Sync:
+Play a sprite sheet animation synchronously:
 
 ```PlayWithRect```
-<br>
-Play a sprite sheet animation synchronously:
 <br>
 ```luau
 SpriteSheetPlayer.PlayWithRect(imageLabel, gridSize, imageSize, fps)
