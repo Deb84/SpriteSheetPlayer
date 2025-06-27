@@ -6,7 +6,7 @@ SpriteSheetPlayer is a mini-lib for Roblox written in Luau which allows to use s
 
 You can simply require the lib like this
 ```luau
-local SpriteSheetPlayer = require(<location>.SpriteSheetPlayer.SpriteSheetPlayer)
+local SpriteSheetPlayer = require(ReplicatedStorage.SpriteSheetPlayer.SpriteSheetPlayer)
 ```
 ---
 
@@ -17,11 +17,11 @@ local SpriteSheetPlayer = require(<location>.SpriteSheetPlayer.SpriteSheetPlayer
 
 ```part``` The part where the animation plays, only if you use ```PlayWithPosition``` (needed to calculate the offset)
 
-```gridSize``` The number of rows and columns
+```gridSize``` The number of rows and columns (exemple: 8, only square are supported for now)
 
-```imageSize``` The total sprite sheet size in pixel, only if you use ```PlayWithRect``` (needed to calculate the size of the frames)
+```imageSize``` The total sprite sheet size in pixel, only if you use ```PlayWithRect``` (exemple: 1024, needed to calculate the size of the frames)
 
-```fps``` Frame Per Second (FPS)
+```fps``` Frame Per Second (FPS) (exemple: 24)
 
 
 ### Sync:
@@ -32,11 +32,13 @@ Play a sprite sheet animation synchronously:
 <br>
 ```luau
 SpriteSheetPlayer.PlayWithRect(imageLabel, gridSize, imageSize, fps)
+SpriteSheetPlayer.PlayWithRect(imageLabel, 8, 1024, 24)
 ```
 ```PlayWithPosition```
 <br>
 ```luau
 SpriteSheetPlayer.PlayWithPosition(imageLabel, part, gridSize, fps)
+SpriteSheetPlayer.PlayWithPosition(imageLabel, part, 8, 24)
 ```
 > [!WARNING]\
 > For now, synchronous can't be stopped, the can maybe played forever
@@ -49,11 +51,12 @@ Play a sprite sheet animation asynchronously:
 <br>
 ```luau
 SpriteSheetPlayer.AsyncPlayWithRect(taskName, imageLabel, gridSize, imageSize, fps)
+SpriteSheetPlayer.AsyncPlayWithRect('1', imageLabel, 8, 1024, 24)
 ```
 ```AsyncPlayWithPositon```
 <br>
 ```luau
-SpriteSheetPlayer.AsyncPlayWithPosition(taskName, imageLabel, part, gridSize, fps)
+SpriteSheetPlayer.AsyncPlayWithPosition('myAnimation', imageLabel, part, 8, 24)
 ```
 
 ### Difference between PlayWithRect and PlayWithPosition :
