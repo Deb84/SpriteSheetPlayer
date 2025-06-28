@@ -1,6 +1,8 @@
 # SpriteSheetPlayer for Roblox
 SpriteSheetPlayer is a mini-lib for Roblox written in Luau which allows to use spritesheet/flipbook on an ```imageLabel``` Instance.
 
+> [!WARNING]\
+> Still in development! A lot of features, like error handling are not yet implemented
 
 ## How to use
 
@@ -41,7 +43,6 @@ SpriteSheetPlayer.PlayWithPosition(imageLabel, part, 8, 24)
 ```
 > [!WARNING]\
 > For now, synchronous can't be stopped, the sprite sheet can be played forever
-> 
 ### Async:
 
 Play a sprite sheet animation asynchronously:
