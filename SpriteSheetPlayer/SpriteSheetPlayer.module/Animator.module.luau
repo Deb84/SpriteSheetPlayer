@@ -14,6 +14,8 @@ function Animations.new(name: string, imageLabel: ImageLabel, gridSize: number, 
 	self.gridSize = gridSize
 	self.framerate = framerate
 	
+	self.state = false -- false stopped, true running
+	
 	return self
 end
 
@@ -40,7 +42,9 @@ function Animations:playWithRect(imageSize: number)
 
 	local x: number = 0
 	local y: number = 0
-
+	
+	self.state = true
+	
 	while task.wait(framerate) do
 		x += 1
 
@@ -70,7 +74,9 @@ function Animations:playWithPosition(part: BasePart)
 
 	local x: number = 0
 	local y: number = 0
-
+	
+	self.state = true
+	
 	while task.wait(framerate) do
 		local xScale: number = imageLabel.Position.X.Scale
 		local yScale: number = imageLabel.Position.Y.Scale
@@ -110,6 +116,11 @@ function Animations:playAsyncWithPosition(part: BasePart)
 	end)
 	
 	Registry.add(self.name, co)
+end
+
+function Animations:stop()
+	local co: thread = Registry.get(self.name)
+	task.cancel(co)
 end
 
 
