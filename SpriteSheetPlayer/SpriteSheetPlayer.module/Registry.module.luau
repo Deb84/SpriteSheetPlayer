@@ -1,22 +1,23 @@
+--!strict
 local Registry = {}
 
-local cache = {}
+local animations = {}
 
-function Registry.add(name: string, obj: table)
-	cache[name] = obj
+function Registry.add(name: string, co: thread)
+	animations[name] = co
 end
 
 function Registry.get(name: string)
-	return cache[name]
+	return animations[name]
 end
 
 -- DEBUG ONLY
 function Registry.getCache()
-	return cache
+	return animations
 end
 
 function Registry.remove(name: string)
-	cache[name] = nil
+	animations[name] = nil
 end
 
 return Registry
