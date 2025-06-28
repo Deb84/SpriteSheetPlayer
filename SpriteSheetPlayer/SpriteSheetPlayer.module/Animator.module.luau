@@ -28,8 +28,6 @@ end
 function Animations:playWithRect(imageSize: number)
 	local imageLabel = self.imageLabel
 	local gridSize = self.gridSize
-	
-	local texture = imageLabel.Image
 
 	if imageSize > 1024 then -- limit the size (1024px is the roblox limitation)
 		imageSize = 1024
@@ -65,12 +63,11 @@ function Animations:playWithPosition(part: BasePart)
 	local imageLabel = self.imageLabel
 	local gridSize = self.gridSize
 	
-	local texture: Texture = imageLabel.Image
 	local offset: number = -(part.Size.Y * 50)
 
 	local framerate: number = 1/math.min(self.framerate, Config.MAX_FPS)
 
-	self.imageLabel.Size = UDim2.new(gridSize, 0, gridSize, 0)
+	imageLabel.Size = UDim2.new(gridSize, 0, gridSize, 0)
 
 	local x: number = 0
 	local y: number = 0
