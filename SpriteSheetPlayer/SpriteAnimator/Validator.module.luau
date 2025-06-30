@@ -32,7 +32,7 @@ function Validator.editCheck(t: {any})
 	for k, v in pairs(possibleValue) do
 		local value = t[k]
 		if value ~= nil then
-			assert(typeof(value) == v, 'err')
+			assert(type(value) == v, 'err')
 		end
 	end
 end
