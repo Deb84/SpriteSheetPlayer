@@ -68,7 +68,7 @@ animation:edit({framerate = 15})
 
 ### Delete an animation
 
-```delete()```
+```:delete()```
 <br>
 ```luau
 animation:delete()
