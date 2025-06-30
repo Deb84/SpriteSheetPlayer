@@ -21,8 +21,6 @@ function Validator.editCheck(t: {any})
 	assert(t)
 	assert(type(t) == 'table')
 	
-
-	
 	local possibleValue = {
 		gridSize = 'number',
 		framerate = 'number',
