@@ -12,34 +12,24 @@ local SpriteSheetPlayer = require(Location.SpriteSheetPlayer.SpriteSheetPlayer)
 ```
 ---
 
-### The lib has actually four function to play an sprite sheet animation:
-
-#### Variables used:
+#### Variables required:
 ```imageLabel``` The imageLabel instance
-
-```part``` The part where the animation plays, only if you use ```PlayWithPosition``` (needed to calculate the offset)
 
 ```gridSize``` The number of rows and columns (exemple: 8, only square are supported for now)
 
 ```imageSize``` The total sprite sheet size in pixel, only if you use ```PlayWithRect``` (exemple: 1024, needed to calculate the size of the frames)
 
-```fps``` Frame Per Second (FPS) (exemple: 24)
+```framerate``` Frame Per Second (FPS) (exemple: 24)
 
+## Fonctions
 
-### Sync:
 Play a sprite sheet animation synchronously:
 
-```PlayWithRect```
+```:play()```
 <br>
 ```luau
-SpriteSheetPlayer.PlayWithRect(imageLabel, gridSize, imageSize, fps)
-SpriteSheetPlayer.PlayWithRect(imageLabel, 8, 1024, 24)
-```
-```PlayWithPosition```
-<br>
-```luau
-SpriteSheetPlayer.PlayWithPosition(imageLabel, part, gridSize, fps)
-SpriteSheetPlayer.PlayWithPosition(imageLabel, part, 8, 24)
+local animation = SpriteSheetPlayer.new(name, ImageLabel, gridSize, framerate)
+animation:play(imageSize)
 ```
 > [!WARNING]\
 > For now, synchronous can't be stopped, the sprite sheet can be played forever
@@ -47,21 +37,35 @@ SpriteSheetPlayer.PlayWithPosition(imageLabel, part, 8, 24)
 
 Play a sprite sheet animation asynchronously:
 
-```AsyncPlayWithRect```
+```:playAsync()```
 <br>
 ```luau
-SpriteSheetPlayer.AsyncPlayWithRect(taskName, imageLabel, gridSize, imageSize, fps)
-SpriteSheetPlayer.AsyncPlayWithRect('1', imageLabel, 8, 1024, 24)
+local animation = SpriteSheetPlayer.new(name, ImageLabel, gridSize, framerate)
+animation:playAsync(imageSize)
 ```
-```AsyncPlayWithPositon```
+### Stop the animation
+
+```:stop()```
 <br>
 ```luau
-SpriteSheetPlayer.AsyncPlayWithPosition('myAnimation', imageLabel, part, 8, 24)
+animation:stop()
 ```
 
-### Difference between PlayWithRect and PlayWithPosition :
+---
+### Edit the value while an animation is playing
 
-```PlayWithRect``` crops the sprite sheet to the frame size (recommended).
+```:edit()```
+<br>
+```luau
+animation:edit({setting = value})
+animation:edit({framerate = 15})
+```
 
-```PlayWithPosition``` adjusts the size and position of the entire sprite sheet to match the target frame.
+### Delete an animation
 
+```delete()```
+<br>
+```luau
+animation:delete()
+animation = nil
+```
