@@ -10,7 +10,8 @@ local FB_LOGS: any = {
 }
 
 
-function Logger.get(level: string, code: string, args: {any}?): string
+function Logger.get(level: string, code: string, args: {any}?, debugLevel: number): string
+	
 	level = string.upper(level)
 	
 	local levelT: {[string]: string} = Msg[level]
@@ -26,16 +27,29 @@ function Logger.get(level: string, code: string, args: {any}?): string
 		error(string.format(FB_LOGS.INVALID_CODE, 'get', code))
 		-- return
 	end
+	
+	-- debugInfo a
+	local debugInfo = ''
+	if debugLevel then
+		debugInfo = debug.info(debugLevel :: number, 'sln')
+	elseif Config.debugInfo then
+		debugInfo = debug.info(Config.debugLevel :: number, 'sln')
+	end
+
 
 	if args then
+		if type(args) ~= 'table' then
+			args = {args}
+		end
+		
 		local _, expectedArgsN = string.gsub(msgTemplate, '%%[^%%]', "")
 		if #args ~= expectedArgsN then
 			error(string.format(FB_LOGS.INCORRECT_ARGS_N, 'get', expectedArgsN, #args))
 		end
-
-		return string.format('%s %s', Config.tag[level], string.format(msgTemplate, table.unpack(args)))
+		
+		return string.format('%s %s %s', debugInfo, Config.tag[level], string.format(msgTemplate, table.unpack(args)))
 	else
-		return string.format('%s %s', Config.tag[level], msgTemplate)
+		return string.format('%s %s %s', debugInfo, Config.tag[level], msgTemplate)
 	end
 end
 
