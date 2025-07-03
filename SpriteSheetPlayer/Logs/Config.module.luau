@@ -11,7 +11,9 @@ local Config = {
 		INFO = '[SP-INFO]',
 		TRACE = '[SP-TRACE]'
 	},
-	traceDebugLevel = 3
+	traceDebugLevel = 3,
+	debugLevel = 3,
+	debugInfo = true
 }
 
 return Config
