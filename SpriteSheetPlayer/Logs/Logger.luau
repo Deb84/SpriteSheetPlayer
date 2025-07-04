@@ -26,11 +26,11 @@ function Logger.get(level: string, code: string, args: {any}?, debugLevel: numbe
 		-- return
 	end
 	
-	
+
 	-- debugInfo
-	local function debugFormat(level)
-		local source = debug.info(level :: number, 's')
-		local line = debug.info(level :: number, 'l')
+	local function debugFormat(debugLevel)
+		local source = debug.info(debugLevel :: number, 's')
+		local line = debug.info(debugLevel :: number, 'l')
 		--local funcName = debug.info(level :: number, 'n')
 
 		return string.format('[%s:%i:]', source, line)
