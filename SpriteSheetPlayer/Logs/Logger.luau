@@ -27,11 +27,19 @@ function Logger.get(level: string, code: string, args: {any}?, debugLevel: numbe
 	end
 	
 	-- debugInfo a
+	local function debugFormat(level)
+		local source = debug.info(level :: number, 's')
+		local line = debug.info(level :: number, 'l')
+		--local funcName = debug.info(level :: number, 'n')
+
+		return string.format('[%s:%i:]', source, line)
+	end
+
 	local debugInfo = ''
 	if debugLevel then
-		debugInfo = debug.info(debugLevel :: number, 'sln')
+		debugInfo = debugFormat(debugLevel)
 	elseif Config.debugInfo then
-		debugInfo = debug.info(Config.debugLevel :: number, 'sln')
+		debugInfo = debugFormat(Config.debugLevel)
 	end
 
 	if args then
