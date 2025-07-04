@@ -3,8 +3,8 @@ local Animation = require(script.Parent.SpriteAnimator.SpriteAnimator)
 
 local SP2 = {}
 
-function SP2.new(name: string, imageLabel: ImageLabel, gridSize: number, framerate: number)
-	return Animation.new(name, imageLabel, gridSize, framerate)
+function SP2.new(name: string, imageLabel: ImageLabel, imgageSize: number, gridSize: number, framerate: number)
+	return Animation.new(name, imageLabel, imgageSize, gridSize, framerate)
 end
 
-return SP2
+return SP2	
