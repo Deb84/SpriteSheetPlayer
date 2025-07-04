@@ -1,4 +1,5 @@
 local Log = require(script.Parent.Parent.Logs.Init)
+
 local Validator = {}
 
 function Validator.newCheck(name, imageLabel, gridSize, framerate)
@@ -49,9 +50,6 @@ function Validator.editCheck(t: {any})
 		if value ~= nil then
 			validValue = true
 			
-			print(k)
-			print(v)
-			print(_type)
 			_type = type(value)
 			assert(_type == v, Log.get('error', 'SA_INV_EDIT', {k, v, _type}, 4))
 		end
