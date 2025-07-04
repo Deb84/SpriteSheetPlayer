@@ -6,6 +6,8 @@ local Messages = {
 		SA_INV_FRATE = 'Invalid framerate, number expected, got "%s"',
 		
 		SA_INV_IMGSIZE = 'Invalid imageSize, number expected, got "%s"',
+
+		SA_INV_TIMEPAUSE = 'Invalide timePause, number expected, got "%s"';
 		
 		SA_INV_EDIT_T = 'Invalid table, table expected, got "%s"',
 		SA_INV_EDIT = 'Invalid %s, %s expected, got "%s"',
@@ -13,7 +15,7 @@ local Messages = {
 	},
 	
 	WARN = {
-
+		
 	},
 	
 	INFO = {
