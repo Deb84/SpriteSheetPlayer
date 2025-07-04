@@ -1,6 +1,7 @@
 --!strict
 local Config: any = require(script.Parent.Config)
 local Msg: any = require(script.Parent.Messages)
+	
 local Logger = {}
 
 local FB_LOGS: any = {
@@ -11,18 +12,15 @@ local FB_LOGS: any = {
 
 
 function Logger.get(level: string, code: string, args: {any}?, debugLevel: number): string
-	
 	level = string.upper(level)
-	
 	local levelT: {[string]: string} = Msg[level]
-	
+
 	if not levelT then
 		error(string.format(FB_LOGS.INVALID_LEVEL, 'get', level))
 		-- return	
 	end
-	
-	local msgTemplate: any = levelT[code]
 
+	local msgTemplate: any = levelT[code]
 	if not levelT[code] then
 		error(string.format(FB_LOGS.INVALID_CODE, 'get', code))
 		-- return
@@ -36,12 +34,11 @@ function Logger.get(level: string, code: string, args: {any}?, debugLevel: numbe
 		debugInfo = debug.info(Config.debugLevel :: number, 'sln')
 	end
 
-
 	if args then
 		if type(args) ~= 'table' then
 			args = {args}
 		end
-		
+
 		local _, expectedArgsN = string.gsub(msgTemplate, '%%[^%%]', "")
 		if #args ~= expectedArgsN then
 			error(string.format(FB_LOGS.INCORRECT_ARGS_N, 'get', expectedArgsN, #args))
