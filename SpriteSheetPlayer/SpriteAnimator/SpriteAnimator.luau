@@ -12,7 +12,7 @@ Animation.__index = Animation
 
 function Animation.new(name, imageLabel, imageSize, gridSize, framerate: number) : Types.Animation
 	Validator.newCheck(name, imageLabel, imageSize, gridSize, framerate)
-	
+
 	local self = setmetatable({}, Animation)
 	self.name = name
 	self.imageLabel = imageLabel
@@ -129,6 +129,8 @@ function Animation:stop()
 	if Registry.exist(self.name) then
 		local co: thread = Registry.get(self.name)
 		task.cancel(co)
+
+		Registry.remove(self.name)
 	end
 
 	self.state = false
