@@ -2,11 +2,12 @@ local Log = require(script.Parent.Parent.Logs.Init)
 
 local Validator = {}
 
-function Validator.newCheck(name, imageLabel, gridSize, framerate)
+function Validator.newCheck(name, imageLabel, imageSize, gridSize, framerate)
 	local debugLevel = 6
 
 	assert(name, Log.get('error', 'SA_INV_NAME', 'nil', debugLevel))
 	assert(imageLabel, Log.get('error', 'SA_INV_IMGLB', 'nil', debugLevel))
+	assert(imageSize, Log.get('error', 'SA_INV_IMGSIZE', 'nil', debugLevel))
 	assert(gridSize, Log.get('error', 'SA_INV_GRIDSIZE', 'nil', debugLevel))
 	assert(framerate, Log.get('error', 'SA_INV_FRATE', 'nil', debugLevel))
 	
@@ -16,6 +17,9 @@ function Validator.newCheck(name, imageLabel, gridSize, framerate)
 	
 	_type = (typeof(imageLabel) == 'Instance' and imageLabel.ClassName) or type(imageLabel)
 	assert(_type == 'ImageLabel', Log.get('error', 'SA_INV_IMGLB', _type, debugLevel))
+
+	_type = type(imageSize)
+	assert(type(imageSize) == 'number', Log.get('error', 'SA_INV_IMGSIZE', _type, debugLevel))
 	
 	_type = type(gridSize)
 	assert(_type == 'number', Log.get('error', 'SA_INV_GRIDSIZE', _type, debugLevel))
@@ -25,27 +29,17 @@ function Validator.newCheck(name, imageLabel, gridSize, framerate)
 end
 
 
-function Validator.playCheck(imageSize)
-	local debugLevel = 5
-
-	assert(imageSize, Log.get('error', 'SA_INV_IMGSIZE', 'nil', debugLevel))
-	
-	local _type = type(imageSize)
-	assert(type(imageSize) == 'number', Log.get('error', 'SA_INV_IMGSIZE', _type, debugLevel))
-end
-
-
 function Validator.pauseCheck(pauseTime)
 	local debugLevel = 5
 
-	assert(pauseTime, Log.get('error', 'SA_INV_TIMEPAUSE', 'nil', debugLevel))
-
-	local _type = type(pauseTime)
-	assert(_type == 'number', Log.get('error', 'SA_INV_TIMEPAUSE', _type, debugLevel))
+	if pauseTime then
+		local _type = type(pauseTime)
+		assert(_type == 'number', Log.get('error', 'SA_INV_TIMEPAUSE', _type, debugLevel))
+	end
 end
 
 function Validator.editCheck(t: {any})
-	local debugLevel = 4
+	local debugLevel = 5
 
 	assert(t, Log.get('error', 'SA_INV_EDIT_T', 'nil', debugLevel))
 	
