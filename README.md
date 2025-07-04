@@ -27,7 +27,7 @@ local SpriteSheetPlayer = require(Location.SpriteSheetPlayer.SpriteSheetPlayer)
 
 ```.new()```
 ```luau
-local animation = SpriteSheetPlayer.new(name, ImageLabel, gridSize, framerate)
+local animation = SpriteSheetPlayer.new(name, ImageLabel, imageSize, gridSize, framerate)
 ```
 ### Play an animation
 Play a sprite sheet animation synchronously:
@@ -35,7 +35,7 @@ Play a sprite sheet animation synchronously:
 ```:play()```
 <br>
 ```luau
-animation:play(imageSize)
+animation:play()
 ```
 > [!WARNING]\
 > For now, synchronous can't be stopped, the sprite sheet can be played forever
@@ -46,7 +46,7 @@ Play a sprite sheet animation asynchronously:
 ```:playAsync()```
 <br>
 ```luau
-animation:playAsync(imageSize)
+animation:playAsync()
 ```
 ### Stop the animation
 
