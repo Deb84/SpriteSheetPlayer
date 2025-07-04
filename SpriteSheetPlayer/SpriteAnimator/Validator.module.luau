@@ -22,17 +22,17 @@ function Validator.newCheck(name, imageLabel, gridSize, framerate)
 end
 
 function Validator.playCheck(imageSize)
-	assert(imageSize, Log.get('error', 'SA_INV_IMGSIZE', 'nil', 5))
+	assert(imageSize, Log.get('error', 'SA_INV_IMGSIZE', 'nil', 4))
 	
 	local _type = type(imageSize)
-	assert(type(imageSize) == 'number', Log.get('error', 'SA_INV_IMGSIZE', _type, 5))
+	assert(type(imageSize) == 'number', Log.get('error', 'SA_INV_IMGSIZE', _type, 4))
 end
 
 function Validator.editCheck(t: {any})
-	assert(t, Log.get('error', 'SA_INV_EDIT_T', 'nil', 5))
+	assert(t, Log.get('error', 'SA_INV_EDIT_T', 'nil', 4))
 	
 	local _type = type(t)
-	assert(_type == 'table', Log.get('error', 'SA_INV_EDIT_T', _type, 5))
+	assert(_type == 'table', Log.get('error', 'SA_INV_EDIT_T', _type, 4))
 	
 	local possibleValue = {
 		gridSize = 'number',
@@ -42,19 +42,21 @@ function Validator.editCheck(t: {any})
 		mode = 'string'
 	}
 	
+	local validValue = false
 	for k, v in pairs(possibleValue) do
-		local validValue = false
 		
 		local value = t[k]
 		if value ~= nil then
 			validValue = true
 			
+			print(k)
+			print(v)
+			print(_type)
 			_type = type(value)
-			assert(_type == v, Log.get('error', 'SA_INV_EDIT', {k, v, _type}, 5))
+			assert(_type == v, Log.get('error', 'SA_INV_EDIT', {k, v, _type}, 4))
 		end
-		
-		assert(validValue, Log.get('error', 'SA_INV_EDIT_V', nil, 4))
 	end
+	assert(validValue, Log.get('error', 'SA_INV_EDIT_V', nil, 4))
 end
 
 return Validator
