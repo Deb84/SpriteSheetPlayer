@@ -10,12 +10,13 @@ local Animation = {}
 Animation.__index = Animation
 
 
-function Animation.new(name, imageLabel, gridSize, framerate: number) : Types.Animation
-	Validator.newCheck(name, imageLabel, gridSize, framerate)
-
+function Animation.new(name, imageLabel, imageSize, gridSize, framerate: number) : Types.Animation
+	Validator.newCheck(name, imageLabel, imageSize, gridSize, framerate)
+	
 	local self = setmetatable({}, Animation)
 	self.name = name
 	self.imageLabel = imageLabel
+	self.imageSize = imageSize
 	self.gridSize = gridSize
 
 	-- if framerate return the lower value between framerate & MAX value, if not framerate return DEFAULT value
@@ -44,14 +45,10 @@ end
 
 
 -- use the rectOffset to play a sprite sheet
-function Animation:play(imageSize: number, lastPos: Vector2?)
-	if not self.async then
-		Validator.playCheck(imageSize)
-	end
+function Animation:play(lastPos: Vector2?)
 
-	self.imageSize = imageSize
-	self.mode = 'playWithRect'
-	local imageLabel = self.imageLabel
+	local imageSize: number = self.imageSize
+	local imageLabel: ImageLabel = self.imageLabel
 	local gridSize: number = self.gridSize
 
 	local offset: number = math.min(imageSize / gridSize, Config.MAX_IMAGESIZE / gridSize)
@@ -76,12 +73,11 @@ end
 
 
 -- Async
-function Animation:playAsync(imageSize)
-	Validator.playCheck(imageSize)
+function Animation:playAsync()
 
 	self.async = true
 	local co: thread = task.spawn(function()
-		self:play(imageSize)
+		self:play()
 	end)
 
 	Registry.add(self.name, co)
@@ -91,15 +87,16 @@ function Animation:unpause()
 	self.paused = false
 
 	local lastPos = self.pos
+	-- if not last pos check
 
 	if self.async then
 		local co: thread = task.spawn(function()
-			self:play(self.imageSize, lastPos)
+			self:play(lastPos)
 		end)
 
 		Registry.add(self.name, co)
 	else
-		self:play(self.imageSize, lastPos)
+		self:play(lastPos)
 	end
 end
 
@@ -129,8 +126,11 @@ end
 
 -- stop
 function Animation:stop()
-	local co: thread = Registry.get(self.name)
-	task.cancel(co)
+	if Registry.exist(self.name) then
+		local co: thread = Registry.get(self.name)
+		task.cancel(co)
+	end
+
 	self.state = false
 end
 
