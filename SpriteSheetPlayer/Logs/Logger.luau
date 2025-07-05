@@ -1,6 +1,7 @@
 --!strict
 local Config: any = require(script.Parent.Config)
 local Msg: any = require(script.Parent.Messages)
+local Trace: any = require(script.Parent.Trace)
 	
 local Logger = {}
 
@@ -11,7 +12,7 @@ local FB_LOGS: any = {
 }
 
 
-function Logger.get(level: string, code: string, args: {any}?, debugLevel: number): string
+function Logger.get(level: string, code: string, args: any | {any}?, debugLevel: number?): string
 	level = string.upper(level)
 	local levelT: {[string]: string} = Msg[level]
 
@@ -28,9 +29,9 @@ function Logger.get(level: string, code: string, args: {any}?, debugLevel: numbe
 	
 
 	-- debugInfo
-	local function debugFormat(debugLevel)
-		local source = debug.info(debugLevel :: number, 's')
-		local line = debug.info(debugLevel :: number, 'l')
+	local function debugFormat(_debugLevel)
+		local source = debug.info(_debugLevel :: number, 's')
+		local line = debug.info(_debugLevel :: number, 'l')
 		--local funcName = debug.info(level :: number, 'n')
 
 		return string.format('[%s:%i:]', source, line)
@@ -45,6 +46,11 @@ function Logger.get(level: string, code: string, args: {any}?, debugLevel: numbe
 		end
 	end
 
+	local function addTrace(finalMsg)
+		if Config.saveLogInTrace then
+			Trace.trace(finalMsg)
+		end
+	end
 
 	if args then
 		if type(args) ~= 'table' then
@@ -56,9 +62,15 @@ function Logger.get(level: string, code: string, args: {any}?, debugLevel: numbe
 			error(string.format(FB_LOGS.INCORRECT_ARGS_N, 'get', expectedArgsN, #args))
 		end
 		
-		return string.format('%s %s %s', debugInfo, Config.tag[level], string.format(msgTemplate, table.unpack(args)))
+		local finalMsg = string.format('%s %s %s', debugInfo, Config.tag[level], string.format(msgTemplate, table.unpack(args)))
+
+		addTrace(finalMsg)
+		return finalMsg
 	else
-		return string.format('%s %s %s', debugInfo, Config.tag[level], msgTemplate)
+		local finalMsg = string.format('%s %s %s', debugInfo, Config.tag[level], msgTemplate)
+		
+		addTrace(finalMsg)
+		return finalMsg
 	end
 end
 
