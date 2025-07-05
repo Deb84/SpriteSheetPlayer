@@ -2,7 +2,10 @@
 SpriteSheetPlayer is a mini-lib for Roblox written in Luau which allows to use spritesheet/flipbook on an ```imageLabel``` Instance.
 
 > [!WARNING]\
-> Still in development! A lot of features are not yet implemented
+> Still in development! A lot of features are not yet implemented!
+> <br>
+> This README can also be not updated when you use it so
+> please feel free to open an issue if you have any problems.
 
 ## How to use
 
