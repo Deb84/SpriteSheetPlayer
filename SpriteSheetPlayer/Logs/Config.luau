@@ -11,6 +11,9 @@ local Config = {
 		INFO = '[SP-INFO]',
 		TRACE = '[SP-TRACE]'
 	},
+	
+	saveLogInTrace = true,
+
 	traceDebugLevel = 3,
 	debugLevel = 3,
 	debugInfo = true
